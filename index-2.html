@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erikha Ngomba — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f14; --bg2:#10161d; --panel:#121a22; --line:#1f2a35;
+    --ink:#d7e0e8; --muted:#7b8a99; --dim:#4a5866;
+    --green:#3ee08f; --cyan:#4cc9f0; --amber:#ffb454; --pink:#ff6b9d; --violet:#b48cff;
+    --mono:"JetBrains Mono",ui-monospace,monospace; --sans:"Space Grotesk",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:16px;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:48px 48px;opacity:.35;
+    mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%)}
+  #matrix{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.12}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+  ::selection{background:var(--green);color:var(--bg)}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:20;background:rgba(11,15,20,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:58px;font-family:var(--mono);font-size:14px}
+  .logo{text-decoration:none;color:var(--green)}
+  .logo span{color:var(--muted)}
+  nav ul{display:flex;gap:22px;list-style:none}
+  nav ul a{text-decoration:none;color:var(--muted)}
+  nav ul a::before{content:"./";color:var(--dim)}
+  nav ul a:hover{color:var(--green)}
+
+  /* HERO */
+  header{padding:80px 0 64px}
+  .term{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(62,224,143,.25)}
+  .term-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--line)}
+  .dot{width:12px;height:12px;border-radius:50%}
+  .term-title{margin-left:12px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .term-body{padding:28px 28px 32px;font-family:var(--mono);font-size:15px}
+  .prompt{color:var(--green)}
+  .path{color:var(--cyan)}
+  .cmd{color:var(--ink)}
+  .out{color:var(--muted);margin:6px 0 18px}
+  .name{font-family:var(--sans);font-weight:700;font-size:clamp(40px,8vw,76px);line-height:1;letter-spacing:-.03em;color:#fff;margin:4px 0 12px}
+  .name .hl{color:var(--green)}
+  .role{font-size:clamp(15px,2.2vw,18px);color:var(--amber);min-height:1.6em}
+  .caret{display:inline-block;width:10px;height:1.1em;background:var(--green);vertical-align:text-bottom;margin-left:3px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .btn{font-family:var(--mono);font-size:14px;padding:11px 18px;border-radius:8px;text-decoration:none;border:1px solid var(--green);color:var(--green);transition:.2s}
+  .btn.primary{background:var(--green);color:var(--bg);font-weight:700}
+  .btn:hover{box-shadow:0 0 0 4px rgba(62,224,143,.15)}
+  .status{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .status b{color:var(--green);font-weight:500}
+  .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px;box-shadow:0 0 0 0 rgba(62,224,143,.6);animation:pulse 2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 8px rgba(62,224,143,0)}100%{box-shadow:0 0 0 0 rgba(62,224,143,0)}}
+
+  /* SECTIONS */
+  section{padding:72px 0}
+  .sec-head{font-family:var(--mono);margin-bottom:32px}
+  .sec-head .c{color:var(--dim);font-size:13px;display:block;margin-bottom:6px}
+  .sec-head h2{font-family:var(--sans);font-size:34px;font-weight:700;letter-spacing:-.02em;color:#fff}
+  .sec-head h2 .k{color:var(--pink);font-family:var(--mono);font-weight:500;font-size:22px}
+  .sec-head h2 .p{color:var(--muted);font-family:var(--mono);font-weight:400;font-size:22px}
+
+  /* ABOUT as code */
+  .about{display:grid;grid-template-columns:1.2fr 1fr;gap:28px}
+  .about-text p{color:#b8c4cf}
+  .about-text p+p{margin-top:14px}
+  .code{background:var(--panel);border:1px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:13.5px;line-height:1.85;padding:18px 0;overflow-x:auto}
+  .code .ln{display:block;padding:0 18px 0 0;white-space:pre}
+  .code .ln::before{content:attr(data-n);display:inline-block;width:38px;text-align:right;padding-right:14px;color:var(--dim)}
+  .k{color:var(--pink)} .s{color:var(--green)} .v{color:var(--cyan)} .n{color:var(--amber)} .cm{color:var(--dim)} .f{color:var(--violet)}
+
+  /* PROJECTS */
+  .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .project{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px;position:relative;transition:.25s;overflow:hidden}
+  .project:hover{border-color:var(--green);transform:translateY(-3px)}
+  .project.featured{grid-column:1/-1;border-color:rgba(62,224,143,.45);background:linear-gradient(135deg,rgba(62,224,143,.07),transparent 60%),var(--panel)}
+  .p-file{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .p-file .fn{color:var(--cyan)}
+  .project h3{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.01em}
+  .badge{font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:5px;background:rgba(255,180,84,.12);color:var(--amber);border:1px solid rgba(255,180,84,.35);margin-left:10px;vertical-align:middle}
+  .project p{color:#a9b6c2;margin:8px 0 12px;font-size:15px}
+  .project ul{list-style:none;font-size:14.5px;color:#c3ced8}
+  .project li{padding-left:22px;position:relative;margin:6px 0}
+  .project li::before{content:"→";position:absolute;left:0;color:var(--green);font-family:var(--mono)}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .tag{font-family:var(--mono);font-size:12px;padding:3px 9px;border-radius:5px;background:var(--bg2);border:1px solid var(--line);color:var(--cyan)}
+  .feat-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:start}
+  .alerts{background:var(--bg);border:1px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:12px;padding:12px 14px;line-height:1.9}
+  .alerts .t{color:var(--dim)}
+  .lvl{padding:1px 6px;border-radius:3px;font-weight:700;font-size:10.5px}
+  .hi{background:rgba(255,107,157,.15);color:var(--pink)}
+  .md{background:rgba(255,180,84,.15);color:var(--amber)}
+  .lo{background:rgba(76,201,240,.15);color:var(--cyan)}
+
+  /* SKILLS */
+  .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .skill{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px}
+  .skill h4{font-family:var(--mono);font-size:13px;color:var(--green);font-weight:500;margin-bottom:12px}
+  .skill h4::before{content:"$ ls ";color:var(--dim)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-family:var(--mono);font-size:12.5px;padding:4px 10px;border-radius:5px;background:var(--bg2);border:1px solid var(--line);color:var(--ink)}
+
+  /* EXPERIENCE as git log */
+  .gitlog{font-family:var(--mono);font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px 24px}
+  .commit{position:relative;padding:0 0 22px 28px;border-left:2px solid var(--line);margin-left:6px}
+  .commit:last-child{padding-bottom:0}
+  .commit::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--green)}
+  .hash{color:var(--amber)}
+  .ref{color:var(--cyan)}
+  .commit .msg{font-family:var(--sans);font-size:17px;font-weight:700;color:#fff;margin:2px 0}
+  .commit .det{color:var(--muted);font-size:13.5px}
+
+  /* CONTACT */
+  .contact-box{text-align:center;padding:48px 24px;border:1px dashed var(--line);border-radius:14px;background:var(--panel)}
+  .contact-box .c{font-family:var(--mono);color:var(--dim);font-size:13px}
+  .contact-box h3{font-size:clamp(26px,5vw,40px);color:#fff;letter-spacing:-.02em;margin:10px 0 14px}
+  .contact-box p{color:var(--muted);max-width:46ch;margin:0 auto 24px}
+  .mail{font-family:var(--mono);font-size:clamp(14px,2.6vw,20px);color:var(--green);text-decoration:none;border-bottom:1px solid var(--green);word-break:break-all}
+
+  footer{padding:32px 0;font-family:var(--mono);font-size:12px;color:var(--dim);border-top:1px solid var(--line);position:relative;z-index:1}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+  .reveal.on{opacity:1;transform:none}
+
+  @media (max-width:760px){
+    nav ul{display:none}
+    .about,.projects,.feat-grid{grid-template-columns:1fr}
+    header{padding:48px 0 40px}
+    .term-body{padding:20px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<canvas id="matrix"></canvas>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">~/erikha<span>$</span></a>
+    <ul>
+      <li><a href="#apropos">a_propos</a></li>
+      <li><a href="#projets">projets</a></li>
+      <li><a href="#competences">competences</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>
+        <span class="term-title">erikha@montreal: ~ — zsh</span>
+      </div>
+      <div class="term-body">
+        <div><span class="prompt">➜</span> <span class="path">~</span> <span class="cmd">whoami</span></div>
+        <div class="name">Erikha <span class="hl">Ngomba</span></div>
+        <div class="role"><span id="typed"></span><span class="caret"></span></div>
+        <div class="out" style="margin-top:14px">Je développe des applications web et des outils de sécurité réseau.<br>Je termine mon bac en informatique à l'Université de Montréal.</div>
+        <div><span class="prompt">➜</span> <span class="path">~</span> <span class="cmd">./voir_projets.sh</span></div>
+        <div class="cta">
+          <a class="btn primary" href="#projets">[ voir mes projets ]</a>
+          <a class="btn" href="#contact">[ me contacter ]</a>
+        </div>
+        <div class="status">
+          <span><span class="pulse"></span>statut: <b>recherche de stage TI</b></span>
+          <span>dispo: <b>mai 2027</b></span>
+          <span>loc: <b>Montréal, QC</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="apropos">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="c">// 01</span><h2><span class="k">class</span> À propos <span class="p">{ }</span></h2></div>
+    <div class="about">
+      <div class="about-text reveal">
+        <p>Avant mes études, j'ai travaillé comme <b style="color:#fff">technicienne réseaux</b> en RDC, puis au service à la clientèle chez Rogers à Montréal. J'y ai appris à régler des problèmes techniques concrets, vite, avec des personnes très différentes.</p>
+        <p>À l'UdeM, j'ai construit des applications complètes : une app <b style="color:#fff">MERN</b> avec rôles et authentification JWT, un système municipal en <b style="color:#fff">Java</b>, des bases de données <b style="color:#fff">PostgreSQL</b>. Aujourd'hui, je me concentre sur la <b style="color:var(--green)">cybersécurité</b> et l'analyse du trafic réseau.</p>
+      </div>
+      <div class="code reveal">
+<span class="ln" data-n="1"><span class="k">const</span> <span class="v">erikha</span> = {</span>
+<span class="ln" data-n="2">  ville: <span class="s">"Montréal, QC"</span>,</span>
+<span class="ln" data-n="3">  formation: <span class="s">"Bac en informatique, UdeM"</span>,</span>
+<span class="ln" data-n="4">  diplome: <span class="s">"août 2027"</span>,</span>
+<span class="ln" data-n="5">  recherche: <span class="s">"stage TI"</span>,</span>
+<span class="ln" data-n="6">  dispo: <span class="s">"mai 2027"</span>,</span>
+<span class="ln" data-n="7">  langues: [<span class="s">"fr"</span>, <span class="s">"en"</span>],</span>
+<span class="ln" data-n="8">  focus: <span class="s">"sécurité réseau"</span>,</span>
+<span class="ln" data-n="9">  disponible: <span class="n">true</span></span>
+<span class="ln" data-n="10">};</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projets">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="c">// 02</span><h2><span class="k">import</span> Projets <span class="p">from</span> <span class="s" style="font-family:var(--mono);font-size:22px;font-weight:400">'./work'</span></h2></div>
+    <div class="projects">
+
+      <article class="project featured reveal">
+        <div class="p-file"><span class="fn">sentinel/README.md</span><span>nov. 2026 · perso</span></div>
+        <div class="feat-grid">
+          <div>
+            <h3>Sentinel <span class="badge">● en cours</span></h3>
+            <p>Plateforme de détection d'intrusions réseau : elle analyse le trafic, repère les comportements suspects et génère des alertes.</p>
+            <ul>
+              <li>Analyse des paquets avec Scapy : balayages de ports, force brute, pics de requêtes DNS</li>
+              <li>Moteur de règles et détection d'anomalies, alertes dans PostgreSQL via une API FastAPI</li>
+              <li>Tableau de bord et scénarios d'attaque simulés dans un labo Docker</li>
+            </ul>
+            <div class="tags"><span class="tag">Python</span><span class="tag">Scapy</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span></div>
+          </div>
+          <div class="alerts" aria-label="Exemple d'alertes">
+            <div class="t"># sentinel --tail alerts</div>
+            <div><span class="t">23:04:12</span> <span class="lvl hi">HIGH</span> port scan · 10.0.2.15</div>
+            <div><span class="t">23:04:19</span> <span class="lvl md">MED</span> ssh brute force · 22/tcp</div>
+            <div><span class="t">23:05:02</span> <span class="lvl lo">LOW</span> DNS spike · 312 req/min</div>
+            <div><span class="t">23:05:41</span> <span class="lvl hi">HIGH</span> rule #07 matched</div>
+            <div class="t">_</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <div class="p-file"><span class="fn">ift3225-mern/</span><span>hiver 2026 · cours</span></div>
+        <h3>Gestion de profils</h3>
+        <p>App web MERN avec rôles administrateur et utilisateur, faite en équipe pour Technologies de l'Internet (IFT3225).</p>
+        <ul>
+          <li>Interface React : inscription, connexion, modification du profil</li>
+          <li>Authentification JWT côté client, routes protégées</li>
+          <li>Générateur de mots de passe branché sur l'API Express</li>
+        </ul>
+        <div class="tags"><span class="tag">React</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">JWT</span></div>
+      </article>
+
+      <article class="project reveal">
+        <div class="p-file"><span class="fn">maville/</span><span>2025 · génie logiciel</span></div>
+        <h3>MaVille</h3>
+        <p>Application pour signaler, suivre et prioriser des travaux urbains entre résidents, prestataires et la ville.</p>
+        <ul>
+          <li>Front-end en HTML, CSS et JavaScript</li>
+          <li>Back-end Java avec Maven et tests JUnit</li>
+        </ul>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Maven</span><span class="tag">JUnit</span><span class="tag">JS</span></div>
+      </article>
+
+      <article class="project reveal" style="grid-column:1/-1">
+        <div class="p-file"><span class="fn">deckglow.store</span><span>2026 · entrepreneuriat</span></div>
+        <h3>DeckGlow</h3>
+        <p>Boutique en ligne d'accessoires gaming : catalogue, navigation, politiques de livraison et parcours d'achat pensé pour la conversion.</p>
+        <div class="tags"><span class="tag">Shopify</span><span class="tag">E-commerce</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="competences">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="c">// 03</span><h2><span class="f">getCompetences</span><span class="p">()</span></h2></div>
+    <div class="skills">
+      <div class="skill reveal"><h4>langages/</h4><div class="chips"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">SQL</span><span class="chip">C</span><span class="chip">Haskell</span><span class="chip">HTML/CSS</span></div></div>
+      <div class="skill reveal"><h4>web_donnees/</h4><div class="chips"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">FastAPI</span><span class="chip">MongoDB</span><span class="chip">PostgreSQL</span></div></div>
+      <div class="skill reveal"><h4>reseau_securite/</h4><div class="chips"><span class="chip">Scapy</span><span class="chip">analyse de trafic</span><span class="chip">support réseau</span></div></div>
+      <div class="skill reveal"><h4>outils/</h4><div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Docker</span><span class="chip">Maven</span><span class="chip">JUnit</span><span class="chip">Linux</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="c">// 04</span><h2>git log <span class="p">--experience</span></h2></div>
+    <div class="gitlog reveal">
+      <div class="commit">
+        <div><span class="hash">a3f9c21</span> <span class="ref">(Montréal)</span></div>
+        <div class="msg">Rogers Communications — Agente au service à la clientèle</div>
+        <div class="det">résolution de demandes techniques · français et anglais</div>
+      </div>
+      <div class="commit">
+        <div><span class="hash">7b2e4d0</span> <span class="ref">(fév. – sept. 2022)</span></div>
+        <div class="msg">DJP Services d'immigration — Assistante en immigration</div>
+        <div class="det">suivi de dossiers · documents confidentiels</div>
+      </div>
+      <div class="commit">
+        <div><span class="hash">1c08e5f</span> <span class="ref">(jan. 2020 – fév. 2021)</span></div>
+        <div class="msg">BIPtel, RDC — Technicienne réseaux</div>
+        <div class="det">soutien technique · support réseau</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-box reveal">
+      <span class="c">// 05 — contact</span>
+      <h3>Envoyons un ping 👋</h3>
+      <p>Je cherche un stage en TI à partir de mai 2027. Écrivez-moi, je réponds rapidement.</p>
+      <a class="mail" href="mailto:erickangomba19@gmail.com">erickangomba19@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>© 2026 Erikha Ngomba</span><span>built with &lt;/&gt; in Montréal</span></div>
+</footer>
+
+<script>
+  // Effet machine à écrire
+  const roles=["Développeuse web full-stack","Sécurité réseau & détection d'intrusions","Étudiante en informatique @ UdeM"];
+  const el=document.getElementById("typed");let r=0,i=0,del=false;
+  function tick(){const w=roles[r];el.textContent=w.slice(0,i);
+    if(!del&&i<w.length){i++;setTimeout(tick,55)}
+    else if(!del){del=true;setTimeout(tick,1600)}
+    else if(i>0){i--;setTimeout(tick,25)}
+    else{del=false;r=(r+1)%roles.length;setTimeout(tick,300)}}
+  tick();
+
+  // Pluie de code discrète en arrière-plan
+  const c=document.getElementById("matrix"),x=c.getContext("2d");
+  let cols,drops;const chars="01{}<>/;=$#";
+  function size(){c.width=innerWidth;c.height=innerHeight;cols=Math.floor(c.width/18);drops=Array(cols).fill(0).map(()=>Math.random()*-50)}
+  size();addEventListener("resize",size);
+  function draw(){x.fillStyle="rgba(11,15,20,.12)";x.fillRect(0,0,c.width,c.height);x.fillStyle="#3ee08f";x.font="14px JetBrains Mono, monospace";
+    drops.forEach((d,k)=>{x.fillText(chars[Math.floor(Math.random()*chars.length)],k*18,d*18);drops[k]=d*18>c.height&&Math.random()>.975?0:d+1})}
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(draw,70);
+
+  // Apparition au défilement
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(n=>io.observe(n));
+</script>
+</body>
+</html>
